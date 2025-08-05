@@ -1,7 +1,9 @@
-from pkg_resources import get_distribution, DistributionNotFound
+try:
+    from importlib.metadata import version, PackageNotFoundError
+except ImportError:
+    from importlib_metadata import version, PackageNotFoundError  # Only for Python <3.8
 
 try:
-    __version__ = get_distribution("django-user-sessions").version
-except DistributionNotFound:
-    # package is not installed
+    __version__ = version("django-user-sessions")
+except PackageNotFoundError:
     __version__ = None
